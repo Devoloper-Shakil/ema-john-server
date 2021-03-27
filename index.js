@@ -8,7 +8,7 @@ const app = express()
 app.use(bodyParser.json());
 app.use(cors());
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xcxqb.mongodb.net/emaJohn?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xcxqb.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 const port = 5000
 
@@ -18,6 +18,10 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
   const collection = client.db("emaJohn").collection("emaJohn69");
   const addOrderCollection = client.db("emaJohn").collection("addOder");
+
+  app.get('/',(req,res)=>{
+      res.send("working it's successfully")
+  })
 
   app.post('/addProduct', (req, res) => {
       const products =req.body;
